@@ -1,17 +1,19 @@
 // from data.js
 var tableData = data;
-
 // Select the button
-var button = d3.select("#button");
+var button = d3.select("#filter-btn");
 
+var inputField = d3.select("#form-control")
 // Select the form
 var form = d3.select("#form");
-
+// Use D3 to select the table body
+var tbody = d3.select("tbody");
 // YOUR CODE HERE!
 console.log(tableData);
 
-// Use D3 to select the table body
-var tbody = d3.select("tbody");
+// Create event handlers 
+button.on("click", handleClick);
+form.on("click", handleClick);
 
 // Loop Through `tableData` and console.log each ufo sighting object
 tableData.forEach(function(ufoReport) {
@@ -32,10 +34,8 @@ tableData.forEach(function(ufoReport) {
     });
 });
 
-button.on("click", runEnter);
-form.on("submit",runEnter);
 
-function runEnter() {
+function handleClick() {
 
     // Prevent the page from refreshing
     d3.event.preventDefault();
@@ -46,10 +46,13 @@ function runEnter() {
     // Get the value property of the input element
     var inputValue = inputElement.property("value");
   
-    // Print the value to the console
     console.log(inputValue);
+    console.log(tableData);
+
+    var filteredData = tableData.filter(tableData => tableData.datetime === inputValue);
+    console.log(filteredData);
     // Set the span tag in the h1 element to the text
     // that was entered in the form
-    d3.select("h1>span").text(inputValue);
-  }
+    // d3.select("h1>span").text(inputValue);
+};
   
